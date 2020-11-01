@@ -1,0 +1,1 @@
+This is the Android MVVM Architecture sample demo app.

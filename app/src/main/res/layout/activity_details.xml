@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/vParent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
@@ -11,11 +11,12 @@
     <ImageView
         android:id="@+id/ivCover"
         android:layout_width="0dp"
-        android:layout_height="460dp"
+        android:layout_height="400dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="fitCenter"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -23,10 +24,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
+        android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivCover"
         tools:text="Train to Busan" />
@@ -36,7 +38,7 @@
         android:id="@+id/tvGenre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="25dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
         app:layout_constraintTop_toTopOf="@+id/tvTitle"
@@ -47,17 +49,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        tools:text="1h 50m"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/tvGenre"
-        app:layout_constraintTop_toTopOf="@+id/tvGenre" />
+        app:layout_constraintTop_toTopOf="@+id/tvGenre"
+        tools:text="1h 50m" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/white"
         android:layout_marginTop="10dp"
+        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
 
@@ -66,14 +68,14 @@
         android:id="@+id/tvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:maxLines="5"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="@+id/tvGenre"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " />
 
     <ProgressBar

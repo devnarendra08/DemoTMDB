@@ -16,8 +16,8 @@ import javax.inject.Inject
  * Repository which fetches data from Remote or Local data sources
  */
 class MovieRepository @Inject constructor(
-        private val movieRemoteDataSource: MovieRemoteDataSource,
-        private val movieDao: MovieDao
+    private val movieRemoteDataSource: MovieRemoteDataSource,
+    private val movieDao: MovieDao
 ) {
 
     suspend fun fetchTrendingMovies(): Flow<Result<TrendingMovieResponse>?> {
@@ -38,9 +38,9 @@ class MovieRepository @Inject constructor(
     }
 
     private fun fetchTrendingMoviesCached(): Result<TrendingMovieResponse>? =
-            movieDao.getAll()?.let {
-                Result.success(TrendingMovieResponse(it))
-            }
+        movieDao.getAll()?.let {
+            Result.success(TrendingMovieResponse(it))
+        }
 
     suspend fun fetchMovie(id: Int): Flow<Result<MovieDesc>> {
         return flow {

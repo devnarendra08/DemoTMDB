@@ -77,7 +77,10 @@ class DetailsActivity : AppCompatActivity() {
         tvTitle.text = movie.title
         tvDescription.text = movie.overview
         Glide.with(this).load(Config.IMAGE_URL + movie.poster_path)
-                .apply(RequestOptions().override(400, 400).centerInside().placeholder(R.drawable.placehoder)).into(ivCover)
+            .apply(
+                RequestOptions().override(400, 400).centerInside()
+                    .placeholder(R.drawable.placehoder)
+            ).into(ivCover)
 
         val genreNames = mutableListOf<String>()
         movie.genres.map {

@@ -40,8 +40,8 @@ class ListingActivity : AppCompatActivity() {
         rvMovies.layoutManager = layoutManager
 
         val dividerItemDecoration = DividerItemDecoration(
-                rvMovies.context,
-                layoutManager.orientation
+            rvMovies.context,
+            layoutManager.orientation
         )
 
         rvMovies.addItemDecoration(dividerItemDecoration)

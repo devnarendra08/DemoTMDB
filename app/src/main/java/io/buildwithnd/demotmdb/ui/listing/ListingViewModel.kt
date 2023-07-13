@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.collect
  * ViewModel for ListingActivity
  */
 class ListingViewModel @ViewModelInject constructor(private val movieRepository: MovieRepository) :
-        ViewModel() {
+    ViewModel() {
 
     private val _movieList = MutableLiveData<Result<TrendingMovieResponse>>()
     val movieList = _movieList

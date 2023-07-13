@@ -16,9 +16,10 @@ import io.buildwithnd.demotmdb.util.Genre
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
 class MoviesAdapter(private val context: Context, private val list: ArrayList<Movie>) :
-        RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+    RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
-    class MovieViewHolder(private val context: Context, itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(private val context: Context, itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
 
         fun bind(movie: Movie) {
             itemView.setOnClickListener {
@@ -28,14 +29,17 @@ class MoviesAdapter(private val context: Context, private val list: ArrayList<Mo
             }
             itemView.tvTitle.text = movie.title
             Glide.with(context).load(Config.IMAGE_URL + movie.poster_path)
-                    .apply(RequestOptions().override(400, 400).centerInside().placeholder(R.drawable.placehoder)).into(itemView.ivPoster)
+                .apply(
+                    RequestOptions().override(400, 400).centerInside()
+                        .placeholder(R.drawable.placehoder)
+                ).into(itemView.ivPoster)
             itemView.tvGenre.text = Genre.getGenre(movie.genre_ids)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.list_item_movie, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_movie, parent, false)
         return MovieViewHolder(context, view)
     }
 

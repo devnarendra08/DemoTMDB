@@ -26,20 +26,21 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .addInterceptor(AuthInterceptor(BuildConfig.API_KEY))
-                .build()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(AuthInterceptor(BuildConfig.API_KEY))
+            .build()
     }
 
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
     }
 }

@@ -8,9 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.buildwithnd.demotmdb.R
 import io.buildwithnd.demotmdb.databinding.ActivityMainBinding
 import io.buildwithnd.demotmdb.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*

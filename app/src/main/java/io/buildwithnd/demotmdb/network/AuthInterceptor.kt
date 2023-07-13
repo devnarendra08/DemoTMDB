@@ -1,10 +1,8 @@
 package io.buildwithnd.demotmdb.network
 
-import io.buildwithnd.demotmdb.Config
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import javax.inject.Inject
 
 /**
  * Intercepts and adds Token or API Key

@@ -2,7 +2,6 @@ package io.buildwithnd.demotmdb.data.local
 
 import androidx.room.*
 import io.buildwithnd.demotmdb.model.Movie
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {

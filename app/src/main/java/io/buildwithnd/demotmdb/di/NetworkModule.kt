@@ -17,7 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkModule {
 
     private const val baseUrl = Config.BASE_URL
-
     @Provides
     fun provideHTTPLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()

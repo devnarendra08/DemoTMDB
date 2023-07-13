@@ -1,9 +1,7 @@
 package io.buildwithnd.demotmdb.model
 
-import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
 @Entity
 data class Movie(
     @PrimaryKey

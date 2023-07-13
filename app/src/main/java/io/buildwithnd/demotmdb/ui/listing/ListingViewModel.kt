@@ -28,6 +28,7 @@ class ListingViewModel @ViewModelInject constructor(private val movieRepository:
         viewModelScope.launch {
             loadingIsShowing.postValue(true)
             movieRepository.fetchTrendingMovies().collect { result ->
+
                 when (result?.status) {
                     Result.Status.SUCCESS -> {
                         result.data?.results?.let { listOfMovies ->
@@ -38,7 +39,7 @@ class ListingViewModel @ViewModelInject constructor(private val movieRepository:
 
                     Result.Status.ERROR -> {
                         result.message?.let {
-                            showError.postValue("no movie list")
+                            showError.postValue(it)
                         }
                         loadingIsShowing.postValue(false)
                     }

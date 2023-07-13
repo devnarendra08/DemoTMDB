@@ -6,7 +6,7 @@ import io.buildwithnd.demotmdb.data.MovieRepository
 import io.buildwithnd.demotmdb.model.MovieDesc
 import io.buildwithnd.demotmdb.model.Result
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel for Movie details screen
@@ -14,19 +14,34 @@ import kotlinx.coroutines.flow.onStart
 class DetailsViewModel @ViewModelInject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
 
-    private var _id = MutableLiveData<Int>()
-    private val _movie: LiveData<Result<MovieDesc>> = _id.distinctUntilChanged().switchMap {
-        liveData {
-            movieRepository.fetchMovie(it).onStart {
-                emit(Result.loading())
-            }.collect {
-                emit(it)
+    val loadingLiveData = MutableLiveData<Boolean>()
+    val showErrorLiveData = MutableLiveData<String>()
+    val movieDetailLiveData = MutableLiveData<MovieDesc>()
+
+    fun fetchDetails(id: Int) {
+        viewModelScope.launch {
+            loadingLiveData.postValue(true)
+            movieRepository.fetchMovie(id).collect {
+                when (it.status) {
+                    Result.Status.SUCCESS -> {
+                        it.data?.let {
+                            movieDetailLiveData.postValue(it)
+                        }
+                        loadingLiveData.postValue(false)
+                    }
+
+                    Result.Status.ERROR -> {
+                        it.message?.let {
+                            showErrorLiveData.postValue(it)
+                        }
+                        loadingLiveData.postValue(false)
+                    }
+
+                    Result.Status.LOADING -> {
+                        loadingLiveData.postValue(true)
+                    }
+                }
             }
         }
-    }
-    val movie = _movie
-
-    fun getMovieDetail(id: Int) {
-        _id.value = id
     }
 }

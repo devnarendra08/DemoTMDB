@@ -1,13 +1,12 @@
 package io.buildwithnd.demotmdb.ui.listing
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.buildwithnd.demotmdb.data.MovieRepository
+import io.buildwithnd.demotmdb.model.Movie
 import io.buildwithnd.demotmdb.model.Result
-import io.buildwithnd.demotmdb.model.TrendingMovieResponse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
@@ -17,8 +16,9 @@ import kotlinx.coroutines.flow.collect
 class ListingViewModel @ViewModelInject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
 
-    private val _movieList = MutableLiveData<Result<TrendingMovieResponse>>()
-    val movieList = _movieList
+    val movieList = MutableLiveData<List<Movie>>()
+    val loadingIsShowing = MutableLiveData<Boolean>()
+    val showError = MutableLiveData<String>()
 
     init {
         fetchMovies()
@@ -26,8 +26,27 @@ class ListingViewModel @ViewModelInject constructor(private val movieRepository:
 
     private fun fetchMovies() {
         viewModelScope.launch {
-            movieRepository.fetchTrendingMovies().collect {
-                _movieList.value = it
+            loadingIsShowing.postValue(true)
+            movieRepository.fetchTrendingMovies().collect { result ->
+                when (result?.status) {
+                    Result.Status.SUCCESS -> {
+                        result.data?.results?.let { listOfMovies ->
+                            movieList.postValue(listOfMovies)
+                        }
+                        loadingIsShowing.postValue(false)
+                    }
+
+                    Result.Status.ERROR -> {
+                        result.message?.let {
+                            showError.postValue("no movie list")
+                        }
+                        loadingIsShowing.postValue(false)
+                    }
+
+                    Result.Status.LOADING -> {
+                        loadingIsShowing.postValue(true)
+                    }
+                }
             }
         }
     }

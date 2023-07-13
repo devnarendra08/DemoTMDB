@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DemoTMDB">
-        <activity android:name=".ui.details.DetailsActivity"></activity>
+        <activity android:name=".ui.details.DetailsActivity">
+
+        </activity>
         <activity android:name=".ui.listing.ListingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

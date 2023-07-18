@@ -21,7 +21,6 @@ class MovieRemoteDataSource @Inject constructor(private val retrofit: Retrofit) 
             request = { movieService.getPopularMovies() },
             defaultErrorMessage = "Error fetching Movie list"
         )
-
     }
 
     suspend fun fetchMovie(id: Int): Result<MovieDesc> {

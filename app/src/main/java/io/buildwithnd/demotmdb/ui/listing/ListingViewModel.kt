@@ -1,16 +1,14 @@
 package io.buildwithnd.demotmdb.ui.listing
 
-import androidx.core.widget.doOnTextChanged
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.buildwithnd.demotmdb.data.MovieRepository
-import io.buildwithnd.demotmdb.databinding.ActivityMainBinding
 import io.buildwithnd.demotmdb.model.Movie
 import io.buildwithnd.demotmdb.model.Result
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel for ListingActivity

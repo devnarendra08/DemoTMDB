@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Repository which fetches data from Remote or Local data sources
  */
-class MovieRepository @Inject constructor(
+class MovieRepository@Inject constructor(
     private val movieRemoteDataSource: MovieRemoteDataSource,
     private val movieDao: MovieDao
 ) {

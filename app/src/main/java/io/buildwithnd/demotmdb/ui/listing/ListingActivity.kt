@@ -34,14 +34,14 @@ class ListingActivity : AppCompatActivity() {
         setUpObservers()
     }
 
-
     private fun init() {
         title = "Movies"
         val layoutManager = LinearLayoutManager(this)
         rvMovies.layoutManager = layoutManager
 
         val dividerItemDecoration = DividerItemDecoration(
-            rvMovies.context, layoutManager.orientation
+            rvMovies.context,
+            layoutManager.orientation
         )
         rvMovies.addItemDecoration(dividerItemDecoration)
         moviesAdapter = MoviesAdapter(this, list)
@@ -53,15 +53,23 @@ class ListingActivity : AppCompatActivity() {
     }
 
     private fun setUpObservers() {
-        viewModel.loadingIsShowing.observe(this, Observer {
-            binding.loading.isVisible = it
-        })
-        viewModel.showError.observe(this, Observer {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        })
-
-        viewModel.movieList.observe(this, Observer {
-            moviesAdapter.updateData(it)
-        })
+        viewModel.loadingIsShowing.observe(
+            this,
+            Observer {
+                binding.loading.isVisible = it
+            }
+        )
+        viewModel.showError.observe(
+            this,
+            Observer {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        )
+        viewModel.movieList.observe(
+            this,
+            Observer {
+                moviesAdapter.updateData(it)
+            }
+        )
     }
 }

@@ -3,6 +3,7 @@ package io.buildwithnd.demotmdb.data
 import io.buildwithnd.demotmdb.data.local.MovieDao
 import io.buildwithnd.demotmdb.data.remote.MovieRemoteDataSource
 import io.buildwithnd.demotmdb.model.MovieDesc
+import io.buildwithnd.demotmdb.model.MovieSearchDTO
 import io.buildwithnd.demotmdb.model.Result
 import io.buildwithnd.demotmdb.model.TrendingMovieResponse
 import kotlinx.coroutines.Dispatchers
@@ -41,10 +42,20 @@ class MovieRepository @Inject constructor(
             Result.success(TrendingMovieResponse(it))
         }
 
+    suspend fun searchMovies(query: String): Flow<Result<MovieSearchDTO>> {
+        return flow {
+            emit(Result.loading())
+            emit(movieRemoteDataSource.searchMoviesFromNetwork(query))
+        }.flowOn(Dispatchers.IO)
+
+    }
+
+
     suspend fun fetchMovie(id: Int): Flow<Result<MovieDesc>> {
         return flow {
             emit(Result.loading())
             emit(movieRemoteDataSource.fetchMovie(id))
-        }.flowOn(Dispatchers.IO)
+        }
+            .flowOn(Dispatchers.IO)
     }
 }

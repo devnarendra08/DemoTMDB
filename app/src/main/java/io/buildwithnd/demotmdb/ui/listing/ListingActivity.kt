@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * Shows list of movie/show
  */
+
 @AndroidEntryPoint
 class ListingActivity : AppCompatActivity() {
 
@@ -29,11 +31,12 @@ class ListingActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
-        subscribeUi()
+        setUpObservers()
     }
 
+
     private fun init() {
-        title = "Trending Movies"
+        title = "Movies"
         val layoutManager = LinearLayoutManager(this)
         rvMovies.layoutManager = layoutManager
 
@@ -43,9 +46,13 @@ class ListingActivity : AppCompatActivity() {
         rvMovies.addItemDecoration(dividerItemDecoration)
         moviesAdapter = MoviesAdapter(this, list)
         rvMovies.adapter = moviesAdapter
+
+        binding.searchHome.doOnTextChanged { query, _, _, _ ->
+            viewModel.searchMovies(query.toString())
+        }
     }
 
-    private fun subscribeUi() {
+    private fun setUpObservers() {
         viewModel.loadingIsShowing.observe(this, Observer {
             binding.loading.isVisible = it
         })

@@ -1,6 +1,7 @@
 package io.buildwithnd.demotmdb.data.remote
 
 import io.buildwithnd.demotmdb.model.MovieDesc
+import io.buildwithnd.demotmdb.model.MovieSearchDTO
 import io.buildwithnd.demotmdb.model.Result
 import io.buildwithnd.demotmdb.model.TrendingMovieResponse
 import io.buildwithnd.demotmdb.network.services.MovieService
@@ -28,6 +29,14 @@ class MovieRemoteDataSource @Inject constructor(private val retrofit: Retrofit) 
         return getResponse(
             request = { movieService.getMovie(id) },
             defaultErrorMessage = "Error fetching Movie Description"
+        )
+    }
+
+    suspend fun searchMoviesFromNetwork(query: String): Result<MovieSearchDTO> {
+        val movieService = retrofit.create(MovieService::class.java);
+        return getResponse(
+            request = { movieService.getMovieList(query) },
+            defaultErrorMessage = "Error fetching Movies"
         )
     }
 

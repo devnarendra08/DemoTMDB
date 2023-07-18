@@ -1,10 +1,12 @@
 package io.buildwithnd.demotmdb.ui.listing
 
+import androidx.core.widget.doOnTextChanged
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.buildwithnd.demotmdb.data.MovieRepository
+import io.buildwithnd.demotmdb.databinding.ActivityMainBinding
 import io.buildwithnd.demotmdb.model.Movie
 import io.buildwithnd.demotmdb.model.Result
 import kotlinx.coroutines.*
@@ -51,4 +53,34 @@ class ListingViewModel @ViewModelInject constructor(private val movieRepository:
             }
         }
     }
+
+    fun searchMovies(query: String) {
+        if (query.length > 3) {
+            viewModelScope.launch {
+                loadingIsShowing.postValue(true)
+                movieRepository.searchMovies(query).collect { result ->
+                    when (result.status) {
+                        Result.Status.SUCCESS -> {
+                            result.data?.results?.let { listOfMovies ->
+                                movieList.postValue(listOfMovies)
+                            }
+                            loadingIsShowing.postValue(false)
+                        }
+
+                        Result.Status.ERROR -> {
+                            result.message?.let {
+                                showError.postValue(it)
+                            }
+                            loadingIsShowing.postValue(false)
+                        }
+
+                        Result.Status.LOADING -> {
+                            loadingIsShowing.postValue(true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
